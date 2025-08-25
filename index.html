@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <!-- YENİ: Mobil cihazlarda düzgün görünüm üçün meta teqi -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ustan.az - Hər İşin Öz Ustası Var</title>
+    <style>
+        /* GENERAL STYLES */
+        :root { --primary-color: #5cb85c; --secondary-color: #FFC300; --dark-color: #333; --light-color: #f9f9f9; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: white; color: var(--dark-color); margin: 0; line-height: 1.6; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .section { padding: 80px 40px; text-align: center; }
+        .section h2 { font-size: 36px; margin-bottom: 50px; color: var(--dark-color); font-weight: 800; }
+        .card-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* HEADER */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 28px; font-weight: 800; color: var(--dark-color); text-decoration: none; cursor: pointer; }
+        .slogan { font-size: 14px; color: #777; margin: 0; }
+        .nav-button { padding: 10px 20px; border: 2px solid var(--primary-color); border-radius: 5px; background-color: transparent; color: var(--primary-color); cursor: pointer; margin-left: 10px; font-size: 16px; font-weight: 600; transition: all 0.3s; }
+        .nav-button:hover { background-color: var(--primary-color); color: white; }
+        .nav-button.primary { background-color: var(--primary-color); color: white; }
+        .nav-button.primary:hover { background-color: #4a9b4a; border-color: #4a9b4a; }
+        #language-switcher { margin-left: 10px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: var(--light-color); }
+
+        /* HERO SECTION & SEARCH */
+        .hero { position: relative; height: 500px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/8005396/pexels-photo-8005396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-position: center; color: white; display:flex; align-items:center; justify-content:center; }
+        .hero-content { text-align: center; }
+        .hero-content h2 { font-size: 52px; margin-bottom: 10px; font-weight: 800; }
+        .hero-content p { font-size: 22px; opacity: 0.9; }
+        .hero-search-form { margin-top: 30px; display: flex; justify-content: center; gap: 10px; background-color: white; padding: 10px; border-radius: 10px; max-width: 600px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .hero-search-form input { flex-grow: 1; padding: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; border-right: none; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .hero-search-form button { padding: 15px 30px; background-color: var(--primary-color); color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+
+        /* CATEGORIES SECTION */
+        .category-card { background-color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); width: 150px; padding: 20px; text-align: center; text-decoration: none; color: var(--dark-color); transition: transform 0.3s, box-shadow 0.3s; }
+        .category-card:hover { transform: translateY(-10px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .category-card .icon { font-size: 48px; margin-bottom: 15px; }
+        .category-card h3 { margin: 0; font-size: 18px; }
+
+        /* HOW IT WORKS SECTION */
+        .how-it-works { background-color: var(--light-color); }
+        .step-card { background-color: white; padding: 20px; border-radius: 10px; width: 250px; }
+        .step-card .icon { font-size: 40px; color: var(--primary-color); }
+        .step-card h3 { margin: 15px 0 10px 0; }
+        .step-card p { color: #777; font-size: 14px; }
+        
+        /* STATS COUNTER SECTION */
+        .stats { background-color: var(--dark-color); color: white; }
+        .stats h2 { color: white; }
+        .stat-card { width: 250px; }
+        .stat-number { font-size: 48px; font-weight: bold; color: var(--secondary-color); }
+        .stat-title { font-size: 18px; opacity: 0.8; }
+
+        /* FEATURED SERVICE SECTION */
+        .featured-service { background-color: var(--light-color); }
+        .featured-container { display: flex; align-items: center; justify-content: center; gap: 50px; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
+        .featured-image img { width: 400px; height: 400px; object-fit: cover; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .featured-content { text-align: left; max-width: 400px; }
+        .featured-content .tag { background-color: var(--secondary-color); color: var(--dark-color); padding: 5px 10px; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block; }
+        .featured-content h3 { font-size: 32px; margin: 20px 0; }
+        .featured-content .cta-button { background-color: var(--primary-color); color: white; font-size: 16px; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px; }
+
+        /* PARTNERS SECTION */
+        .partners { background-color: white; }
+        .partners-container { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .partner-logo { height: 40px; opacity: 0.6; filter: grayscale(100%); transition: opacity 0.3s, filter 0.3s; }
+        .partner-logo:hover { opacity: 1; filter: grayscale(0%); }
+
+        /* TOP MASTERS & PREMIUM ADS */
+        .top-masters { background-color: white; }
+        .master-card { background-color: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; padding: 20px; transition: transform 0.3s; cursor: pointer; }
+        .master-card:hover { transform: translateY(-10px); }
+        .master-card img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #f7f7f7; }
+        .master-card h3 { margin: 15px 0 5px 0; }
+        .master-card p { color: #777; margin: 0; }
+        .rating { color: var(--secondary-color); font-size: 20px; margin-top: 10px; }
+        .premium-ads { background-color: #FFFACD; }
+        .ad-card { background-color: white; border: 2px solid var(--secondary-color); border-radius: 10px; width: 350px; padding: 20px; text-align: left; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        .ad-price { font-weight: bold; color: var(--primary-color); margin-top: 15px; }
+
+        /* CTA PROVIDER SECTION */
+        .cta-provider { background-color: var(--dark-color); color: white; }
+        .cta-provider h2 { color: white; }
+        .cta-provider p { font-size: 18px; opacity: 0.8; }
+        .cta-provider .cta-button { background-color: var(--secondary-color); color: var(--dark-color); font-size: 18px; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+
+        /* TESTIMONIALS SECTION */
+        .testimonial-card { background-color: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; padding: 25px; }
+        .testimonial-card img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
+        .testimonial-quote { font-style: italic; color: #555; }
+        .testimonial-author { font-weight: bold; margin-top: 15px; }
+        
+        /* BLOG SECTION */
+        .blog { background-color: var(--light-color); }
+        .blog-card { background-color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); width: 300px; text-align: left; text-decoration: none; color: var(--dark-color); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .blog-card:hover { transform: translateY(-10px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .blog-card img { width: 100%; height: 180px; object-fit: cover; }
+        .blog-card-content { padding: 20px; }
+        .blog-card-content h3 { margin-top: 0; }
+        .blog-card-content p { color: #777; font-size: 14px; }
+
+        /* FAQ SECTION */
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { background-color: white; border-radius: 5px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .faq-question { padding: 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; }
+        .faq-item.active .faq-answer { max-height: 200px; padding: 0 20px 20px 20px; }
+        .faq-item.active .faq-question::after { content: '−'; }
+        .faq-question::after { content: '+'; font-size: 24px; }
+        
+        /* AXTARIŞ NƏTİCƏLƏRİ VƏ USTA PROFİLİ SƏHİFƏLƏRİ ÜÇÜN STİLLƏR */
+        .services-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 20px; }
+.services-table th, .services-table td { padding: 15px; border-bottom: 1px solid #eee; }
+.services-table th { background-color: var(--light-color); }
+.review-item { border-bottom: 1px solid #eee; padding: 20px 0; text-align: left; }
+.review-author { font-weight: bold; }
+.review-rating { margin: 5px 0; }
+        .price-slider { width: 100%; }
+.price-values { display: flex; justify-content: space-between; font-size: 14px; color: #777; margin-top: 5px; }
+.sort-bar { text-align: right; margin-bottom: 20px; }
+.sort-bar select { padding: 5px; border-radius: 5px; }
+.pagination { display: flex; justify-content: center; gap: 10px; margin-top: 40px; }
+.pagination a { color: var(--primary-color); text-decoration: none; padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; }
+.pagination a.active { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .page-header { padding: 40px; background-color: var(--light-color); text-align: center; border-bottom: 1px solid #eee; }
+        .page-header h1 { margin: 0; }
+        .back-to-home { display: inline-block; margin-top: 10px; color: var(--primary-color); text-decoration: none; font-weight: bold; }
+        .page-content { padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .search-layout { display: flex; gap: 30px; align-items: flex-start; }
+        .filters-sidebar { width: 250px; flex-shrink: 0; }
+        .filter-group { background-color: var(--light-color); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: left; }
+        .filter-group h3 { margin-top: 0; }
+        .filter-group label { display: block; margin-bottom: 10px; }
+        .results-list { flex-grow: 1; }
+        .search-result-card { display: flex; background-color: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; overflow: hidden; text-decoration: none; color: var(--dark-color); transition: box-shadow 0.3s; cursor:pointer; }
+        .search-result-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .search-result-card img { width: 200px; height: 200px; object-fit: cover; }
+        .search-result-info { padding: 20px; text-align: left; }
+        .search-result-info h3 { margin-top: 0; }
+        .profile-header { display: flex; gap: 30px; align-items: center; background-color: var(--light-color); padding: 40px; border-radius: 10px; }
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .profile-summary h1 { margin: 0; }
+        .profile-summary p { margin: 5px 0; color: #777; }
+        .profile-tabs { display: flex; border-bottom: 1px solid #ccc; margin-top: 40px; }
+        .tab-link { padding: 15px 25px; cursor: pointer; border-bottom: 3px solid transparent; }
+        .tab-link.active { border-bottom-color: var(--primary-color); font-weight: bold; }
+        .tab-content { display: none; padding: 30px 0; }
+        .tab-content.active { display: block; }
+        .portfolio-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .portfolio-gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+        
+        /* FOOTER */
+        footer { background-color: #2b2b2b; color: white; padding: 40px 20px 20px 20px; }
+        .footer-container { display: flex; justify-content: space-around; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; gap: 20px; }
+        .footer-column h4 { margin-top: 0; color: var(--secondary-color); }
+        .footer-column a { display: block; color: #bbb; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-column a:hover { color: white; }
+        .footer-newsletter { text-align: center; margin-top: 30px; padding-top: 30px; border-top: 1px solid #555; }
+        .newsletter-form { display: flex; justify-content: center; margin-top: 10px; }
+        .newsletter-form input { width: 250px; padding: 10px; border-radius: 5px; border: none; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .newsletter-form button { padding: 10px 20px; border: none; background-color: var(--secondary-color); color: var(--dark-color); font-weight: bold; cursor: pointer; border-radius: 5px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+        .footer-bottom { text-align: center; margin-top: 40px; border-top: 1px solid #555; padding-top: 20px; font-size: 14px; color: #bbb; }
+        
+        /* MODAL WINDOWS */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+        /* Login input sahələri */
+#login-form input[type="email"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Extra options */
+.extra-options {
+  display: flex;
+  justify-content: space-between; /* biri sola, biri sağa getsin */
+  align-items: center;
+  margin: 10px 0 20px 0;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* checkbox ilə mətn arası boşluq */
+}
+
+.extra-options a {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.extra-options a:hover {
+  text-decoration: underline;
+}
+
+/* Daxil ol düyməsi */
+#login-form .modal-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#login-form .modal-button:hover {
+  background-color: #4cae4c;
+}
+
+/* Sosial login */
+.social-login {
+  text-align: center;
+  margin-top: 20px;
+}
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.google-btn {
+  background-color: #DB4437;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.facebook-btn {
+  background-color: #4267B2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  display: none;
+  z-index: 3000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.notification.success {
+  background-color: #28a745; /* yaşıl */
+}
+
+.notification.error {
+  background-color: #dc3545; /* qırmızı */
+}
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 30px; border-radius: 10px; width: 80%; max-width: 400px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .phone-input { display: flex; }
+        .phone-input select { width: 30%; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .phone-input input { width: 70%; border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: none; }
+        .modal-button { width: 100%; padding: 12px; background-color: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .modal-links { text-align: center; margin-top: 20px; font-size: 14px; }
+        .modal-links a { margin: 0 10px; color: var(--primary-color); text-decoration: none; }
+        .social-login { text-align: center; margin-top: 20px; }
+        .social-login p { font-size: 14px; color: #777; }
+        .social-buttons { display: flex; justify-content: center; gap: 15px; }
+        .social-btn { padding: 10px 20px; border-radius: 5px; color: white; text-decoration: none; font-weight: bold; }
+        .google-btn { background-color: #DB4437; }
+        .facebook-btn { background-color: #4267B2; }
+        .user-type-selection { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; }
+        .user-type-selection label { border: 2px solid #ccc; padding: 15px; border-radius: 5px; cursor: pointer; width: 120px; transition: all 0.3s; }
+        .user-type-selection input[type="radio"] { display: none; }
+        .user-type-selection input[type="radio"]:checked + label { border-color: var(--primary-color); background-color: #e8f5e9; font-weight: bold; }
+                /* ================== MÜŞTƏRİ PANELİ STİLLƏRİ ================== */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            padding: 30px 0;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .sidebar-header {
+            padding: 0 30px 20px 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-header h3 { margin: 0; font-size: 24px; }
+        .sidebar-header p { margin: 5px 0 0 0; color: #777; }
+        .sidebar-nav { list-style: none; padding: 20px 0; margin: 0; }
+        .sidebar-nav li a {
+            display: flex; align-items: center; padding: 15px 30px; text-decoration: none;
+            color: #555; font-weight: 600; border-left: 3px solid transparent; transition: all 0.3s;
+        }
+        .sidebar-nav li a:hover { background-color: var(--light-color); color: var(--dark-color); }
+        .sidebar-nav li a.active { background-color: #e8f5e9; color: var(--primary-color); border-left-color: var(--primary-color); }
+        .sidebar-nav li a .icon { margin-right: 15px; font-size: 20px; }
+        .sidebar-footer {
+            padding: 20px 30px; border-top: 1px solid var(--border-color);
+            position: absolute; bottom: 0; width: 190px;
+        }
+        .sidebar-footer a { color: #999; text-decoration: none; font-size: 14px; }
+        .main-content { flex-grow: 1; padding: 40px; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .content-header { margin-bottom: 30px; }
+        .content-header h2 { margin: 0; font-size: 28px; }
+        .card { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .orders-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .orders-table th, .orders-table td { padding: 15px; border-bottom: 1px solid var(--border-color); }
+        .orders-table th { background-color: var(--light-color); }
+        .status { padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        .status.active { background-color: #e8f5e9; color: var(--primary-color); }
+        .status.completed { background-color: #e3f2fd; color: #1e88e5; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .form-actions { margin-top: 30px; text-align: right; }
+        .form-actions button {
+            padding: 12px 25px; border: none; border-radius: 5px; background-color: var(--primary-color);
+            color: white; font-size: 16px; font-weight: bold; cursor: pointer;
+        }
+        .masters-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .master-card { padding: 20px; text-align: center; }
+        .master-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+        .master-card h4 { margin: 10px 0 5px 0; }
+        .master-card p { color: #777; margin: 0; font-size: 14px; }
+        .messages-layout { display: flex; height: 60vh; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+        .chat-list { width: 300px; border-right: 1px solid var(--border-color); background-color: white; }
+        .chat-item { display: flex; align-items: center; padding: 15px; cursor: pointer; border-bottom: 1px solid var(--border-color); }
+        .chat-item.active, .chat-item:hover { background-color: var(--light-color); }
+        .chat-item img { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; }
+        .chat-item-info h5 { margin: 0; }
+        .chat-item-info p { margin: 5px 0 0 0; font-size: 14px; color: #777; }
+        .chat-window { flex-grow: 1; display: flex; flex-direction: column; background-color: #e5ddd5; }
+        .chat-header { padding: 15px; background-color: white; border-bottom: 1px solid var(--border-color); }
+        .chat-messages { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        .chat-footer { padding: 15px; background-color: white; display: flex; }
+        .chat-footer input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; }
+/* ================== USTA PANELİ STİLLƏRİ ================== */
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .action-btn.accept { background-color: var(--primary-color); }
+        .action-btn.reject { background-color: #e53935; } /* Qırmızı rəng */
+        .action-btn.edit { background-color: #1e88e5; } /* Mavi rəng */
+/* YENİ: Bildiriş pəncərəsi üçün stillər */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50; /* Yaşıl */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+.notification.error {
+    background-color: #f44336; /* Qırmızı */
+}
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        .calendar-day {
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .calendar-day.header { font-weight: bold; background-color: #e0e0e0; }
+        .calendar-day.busy { background-color: #ffebee; color: #c62828; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 20px;
+    }
+    .hero-content h2 {
+        font-size: 36px;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .step-card, .master-card, .testimonial-card, .blog-card, .ad-card {
+        width: 90%;
+        max-width: 350px;
+    }
+    .featured-container, .search-layout, .dashboard-container {
+        flex-direction: column;
+    }
+    .featured-image img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    .sidebar {
+        width: 100%;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .filters-sidebar {
+        width: 100%;
+    }
+}
+
+/* Mobil telefonlar üçün (məsələn, 480px-dən kiçik) */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    .hero-search-form {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    .hero-search-form input, .hero-search-form button {
+        border-radius: 5px !important;
+        border: 1px solid #ccc;
+    }
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+/* ===================== */
+/*  ANİMASİYA VƏ HOVER  */
+/* ===================== */
+
+/* Fade-in üçün universal class */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button animasiyası */
+button, .nav-button, .cta-button {
+  transition: all 0.3s ease-in-out;
+}
+button:hover, .nav-button:hover, .cta-button:hover {
+  transform: scale(1.05);
+}
+
+/* Kartların hover effekti */
+.card-container .category-card,
+.master-card,
+.blog-card,
+.testimonial-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-container .category-card:hover,
+.master-card:hover,
+.blog-card:hover,
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+/* FAQ animasiyası */
+.faq-item {
+  transition: all 0.3s ease-in-out;
+}
+.faq-item.active {
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Stats sayğac rəqəmləri üçün animasiya rəngi */
+.stat-number {
+  transition: color 0.5s ease-in-out;
+}
+.stat-number:hover {
+  color: var(--primary-color);
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <a class="logo" data-page="home">USTAN.AZ</a>
+            <p class="slogan" data-key="slogan"></p>
+        </div>
+       <nav>
+    <!-- Bu blok ya login/qeydiyyat düymələrini, ya da salamlama mesajını göstərəcək -->
+    <div id="auth-buttons" class="nav-buttons">
+        <button id="login-btn" class="nav-button">Daxil ol</button>
+        <button id="signup-btn" class="nav-button primary">Qeydiyyat</button>
+    </div>
+    <div id="user-greeting" class="user-greeting" style="display: none;">
+        <span id="greeting-text"></span>
+        <button id="dashboard-btn" class="nav-button secondary" data-key="dashboard_button"></button>
+        <button id="logout-btn" class="nav-button primary" data-key="logout_button"></button>
+        <button id="admin-panel-btn" class="nav-button" style="display: none; background-color: #f0ad4e; border-color: #eea236;">Admin Panel</button>
+    </div>
+
+    <select id="language-switcher">
+        <option value="az">Azərbaycan</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="tr">Türkçe</option>
+    </select>
+</nav>
+    </header>
+
+    <!-- ANA SƏHİFƏ MƏZMUNU -->
+    <div id="home-page" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <h2 data-key="hero_title"></h2>
+                <p data-key="hero_subtitle"></p>
+                <form id="hero-search" class="hero-search-form">
+                    <input type="text" data-key="search_placeholder">
+                    <button type="submit" data-key="search_button"></button>
+                </form>
+            </div>
+        </section>
+
+        <section class="section categories">
+            <h2 data-key="categories_title" class="fade-in"></h2>
+            <div class="card-container">
+                <a href="#" class="category-card fade-in" data-page="search-results"><div class="icon">🔧</div><h3 data-key="cat_plumbing"></h3></a>
+                <a href="#" class="category-card fade-in" data-page="search-results"><div class="icon">💡</div><h3 data-key="cat_electric"></h3></a>
+                <a href="#" class="category-card fade-in" data-page="search-results"><div class="icon">🔨</div><h3 data-key="cat_repair"></h3></a>
+                <a href="#" class="category-card fade-in" data-page="search-results"><div class="icon">🎨</div><h3 data-key="cat_design"></h3></a>
+                <a href="#" class="category-card fade-in" data-page="search-results"><div class="icon">🚚</div><h3 data-key="cat_transport"></h3></a>
+            </div>
+        </section>
+
+        <section class="section how-it-works">
+            <h2 data-key="how_it_works_title" class="fade-in"></h2>
+            <div class="card-container">
+                <div class="step-card fade-in"><div class="icon">1.</div><h3 data-key="step1_title"></h3><p data-key="step1_desc"></p></div>
+                <div class="step-card fade-in"><div class="icon">2.</div><h3 data-key="step2_title"></h3><p data-key="step2_desc"></p></div>
+                <div class="step-card fade-in"><div class="icon">3.</div><h3 data-key="step3_title"></h3><p data-key="step3_desc"></p></div>
+            </div>
+        </section>
+        
+        <section class="section stats">
+            <div class="card-container">
+                <div class="stat-card fade-in">
+                    <div class="stat-number" data-goal="1200">0</div>
+                    <div class="stat-title" data-key="stats_masters"></div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number" data-goal="5600">0</div>
+                    <div class="stat-title" data-key="stats_jobs"></div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number" data-goal="4800">0</div>
+                    <div class="stat-title" data-key="stats_clients"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section featured-service">
+            <div class="featured-container fade-in">
+                <div class="featured-image">
+                    <img src="https://images.pexels.com/photos/4210315/pexels-photo-4210315.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Kondisioner təmizlənməsi">
+                </div>
+                <div class="featured-content">
+                    <span class="tag" data-key="featured_tag"></span>
+                    <h3 data-key="featured_title"></h3>
+                    <p data-key="featured_desc"></p>
+                    <a href="#" class="cta-button" data-key="featured_button"></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section top-masters">
+            <h2 data-key="top_masters_title" class="fade-in"></h2>
+            <div class="card-container">
+                <div class="master-card fade-in" data-page="master-profile"> <img src="https://images.pexels.com/photos/5409015/pexels-photo-5409015.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Usta"> <h3>Elvin Məmmədov</h3> <p data-key="cat_plumbing"></p> <div class="rating">★★★★★</div> </div>
+                <div class="master-card fade-in" data-page="master-profile"> <img src="https://images.pexels.com/photos/8092323/pexels-photo-8092323.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Usta"> <h3>Aygün Səmədova</h3> <p data-key="cat_electric"></p> <div class="rating">★★★★★</div> </div>
+                <div class="master-card fade-in" data-page="master-profile"> <img src="https://images.pexels.com/photos/7217988/pexels-photo-7217988.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Usta"> <h3>Rəşad Quliyev</h3> <p data-key="cat_repair"></p> <div class="rating">★★★★☆</div> </div>
+            </div>
+        </section>
+
+        <section class="section cta-provider">
+            <h2 data-key="cta_title" class="fade-in"></h2>
+            <p data-key="cta_desc" class="fade-in"></p>
+            <a href="#" id="signup-btn-cta" class="cta-button fade-in" data-key="cta_button"></a>
+        </section>
+
+        <section class="section partners">
+            <h2 data-key="partners_title" class="fade-in"></h2>
+            <div class="partners-container fade-in">
+                <img src="https://logo.clearbit.com/bosch.com" alt="Bosch" class="partner-logo">
+                <img src="https://logo.clearbit.com/knauf.com" alt="Knauf" class="partner-logo">
+                <img src="https://logo.clearbit.com/samsung.com" alt="Samsung" class="partner-logo">
+                <img src="https://logo.clearbit.com/gorenje.com" alt="Gorenje" class="partner-logo">
+                <img src="https://logo.clearbit.com/lg.com" alt="LG" class="partner-logo">
+            </div>
+        </section>
+
+        <section class="section testimonials">
+            <h2 data-key="testimonials_title" class="fade-in"></h2>
+            <div class="card-container">
+                <div class="testimonial-card fade-in">
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Müştəri">
+                    <p class="testimonial-quote" data-key="testimonial1_quote"></p>
+                    <p class="testimonial-author" data-key="testimonial1_author"></p>
+                </div>
+                 <div class="testimonial-card fade-in">
+                    <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Müştəri">
+                    <p class="testimonial-quote" data-key="testimonial2_quote"></p>
+                    <p class="testimonial-author" data-key="testimonial2_author"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section blog">
+            <h2 data-key="blog_title" class="fade-in"></h2>
+            <div class="card-container">
+                <a href="#" class="blog-card fade-in">
+                    <img src="https://images.pexels.com/photos/159045/the-interior-of-the-repair-interior-design-159045.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Məqalə şəkli">
+                    <div class="blog-card-content"><h3 data-key="blog1_title"></h3><p data-key="blog1_desc"></p></div>
+                </a>
+                <a href="#" class="blog-card fade-in">
+                    <img src="https://images.pexels.com/photos/5691533/pexels-photo-5691533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Məqalə şəkli">
+                    <div class="blog-card-content"><h3 data-key="blog2_title"></h3><p data-key="blog2_desc"></p></div>
+                </a>
+            </div>
+        </section>
+
+        <section class="section faq">
+            <h2 data-key="faq_title" class="fade-in"></h2>
+            <div class="faq-container fade-in">
+                <div class="faq-item"><div class="faq-question" data-key="faq1_q"></div><div class="faq-answer"><p data-key="faq1_a"></p></div></div>
+                <div class="faq-item"><div class="faq-question" data-key="faq2_q"></div><div class="faq-answer"><p data-key="faq2_a"></p></div></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- AXTARIŞ NƏTİCƏLƏRİ SƏHİFƏSİ -->
+<div id="search-results-page" class="page">
+    <div class="page-header">
+        <h1 data-key="search_results_title"></h1>
+        <a href="#" class="back-to-home" data-page="home" data-key="back_to_home"></a>
+    </div>
+    <div class="page-content search-layout">
+        <aside class="filters-sidebar">
+            <div class="filter-group">
+                <h3 data-key="filter_category"></h3>
+                <label><input type="radio" name="category" checked> <span data-key="cat_plumbing"></span></label>
+                <label><input type="radio" name="category"> <span data-key="cat_electric"></span></label>
+                <label><input type="radio" name="category"> <span data-key="cat_repair"></span></label>
+            </div>
+            <div class="filter-group">
+                <h3 data-key="filter_price_range"></h3>
+                <input type="range" min="10" max="500" value="250" class="price-slider">
+                <div class="price-values"><span>10 AZN</span> - <span>500 AZN</span></div>
+            </div>
+            <div class="filter-group">
+                <h3 data-key="filter_experience"></h3>
+                <label><input type="checkbox"> <span data-key="exp_1_3_years"></span></label>
+                <label><input type="checkbox"> <span data-key="exp_3_5_years"></span></label>
+                <label><input type="checkbox"> <span data-key="exp_5_plus_years"></span></label>
+            </div>
+            <div class="filter-group">
+                <h3 data-key="filter_location"></h3>
+                <select style="width:100%; padding: 8px;">
+                    <option data-key="loc_ganja"></option>
+                    <option data-key="loc_baku"></option>
+                    <option data-key="loc_sumgait"></option>
+                </select>
+            </div>
+        </aside>
+        <main class="results-list">
+            <div class="sort-bar">
+                <span data-key="sort_by"></span>
+                <select>
+                    <option data-key="sort_rating"></option>
+                    <option data-key="sort_popularity"></option>
+                    <option data-key="sort_price_low_high"></option>
+                    <option data-key="sort_price_high_low"></option>
+                </select>
+            </div>
+            <div id="search-results-container">
+                <!-- Axtarış nəticələri bura JavaScript ilə yüklənəcək -->
+            </div>
+        </main>
+    </div>
+</div>
+
+    <!-- USTA PROFİLİ SƏHİFƏSİ -->
+<div id="master-profile-page" class="page">
+    <div class="page-content">
+        <a href="#" class="back-to-home" data-page="search-results" data-key="back_to_search" style="margin-bottom: 20px;"></a>
+        <div class="profile-header">
+            <img src="https://images.pexels.com/photos/5409015/pexels-photo-5409015.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="profile-photo" alt="Usta">
+            <div class="profile-summary">
+                <h1>Elvin Məmmədov</h1>
+                <p data-key="cat_plumbing"></p>
+                <div class="rating">★★★★★ (125 rəy)</div>
+                <button class="nav-button primary" style="margin-left:0; margin-top:10px;" data-key="contact_master"></button>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="tab-link active" data-tab="about" data-key="tab_about"></div>
+            <div class="tab-link" data-tab="services" data-key="tab_services"></div>
+            <div class="tab-link" data-tab="portfolio" data-key="tab_portfolio"></div>
+            <div class="tab-link" data-tab="reviews" data-key="tab_reviews"></div>
+        </div>
+
+        <div id="about-content" class="tab-content active">
+            <h3 data-key="about_master_title"></h3>
+            <p data-key="master_about_text"></p>
+        </div>
+        <div id="services-content" class="tab-content">
+            <h3 data-key="services_title"></h3>
+            <table class="services-table">
+                <thead>
+                    <tr>
+                        <th data-key="service_name"></th>
+                        <th data-key="service_price"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Kran təmiri</td><td>15 AZN-dən</td></tr>
+                    <tr><td>Unitaz quraşdırılması</td><td>50 AZN</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="portfolio-content" class="tab-content">
+            <h3 data-key="portfolio_title"></h3>
+            <div class="portfolio-gallery">
+                <img src="https://images.pexels.com/photos/6472033/pexels-photo-6472033.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Portfolio Image">
+                <img src="https://images.pexels.com/photos/6472034/pexels-photo-6472034.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Portfolio Image">
+            </div>
+        </div>
+        <div id="reviews-content" class="tab-content">
+            <h3 data-key="reviews_title"></h3>
+            <div class="review-item">
+                <div class="review-author">Anar K.</div>
+                <div class="review-rating">★★★★★</div>
+                <p class="review-text">"Çox peşəkar və səliqəli usta idi. Problemi tez bir zamanda həll etdi."</p>
+            </div>
+        </div>
+    </div>
+</div>
+  
+ <!-- ================== MÜŞTƏRİ PANELİ SƏHİFƏSİ ================== -->
+    <div id="customer-dashboard-page" class="page">
+        <div class="dashboard-container">
+            <!-- SOL TƏRƏFDƏ NAVİQASİYA MENYUSU -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3 id="customer-dashboard-username"></h3>
+                    <p data-key="dashboard_customer_panel"></p>
+                </div>
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="nav-link active" data-target="orders"><span class="icon">📋</span> <span data-key="dashboard_orders"></span></a></li>
+                    <li><a href="#" class="nav-link" data-target="settings"><span class="icon">⚙️</span> <span data-key="dashboard_settings"></span></a></li>
+                    <li><a href="#" class="nav-link" data-target="saved-masters"><span class="icon">⭐</span> <span data-key="dashboard_saved_masters"></span></a></li>
+                    <li><a href="#" class="nav-link" data-target="messages"><span class="icon">✉️</span> <span data-key="dashboard_messages"></span></a></li>
+                </ul>
+                <div class="sidebar-footer">
+                   <a href="#" data-page="master-dashboard" data-key="switch_to_master_panel"></a>
+    <a href="#" data-page="home" data-key="back_to_home"></a>
+</div>
+            </aside>
+
+            <!-- SAĞ TƏRƏFDƏ ƏSAS MƏZMUN -->
+            <main class="main-content">
+                
+                <!-- 1. MƏNİM SİFARİŞLƏRİM BÖLMƏSİ -->
+                <section id="orders" class="content-section active">
+                    <div class="content-header">
+                        <h2 data-key="dashboard_orders"></h2>
+                    </div>
+                    <div class="card">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th data-key="table_master"></th>
+                                    <th data-key="table_service"></th>
+                                    <th data-key="table_date"></th>
+                                    <th data-key="table_status"></th>
+                                    <th data-key="table_price"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Elvin Məmmədov</td>
+                                    <td>Kondisioner təmiri</td>
+                                    <td>20.08.2025</td>
+                                    <td><span class="status active" data-key="status_active"></span></td>
+                                    <td>80 AZN</td>
+                                </tr>
+                                <tr>
+                                    <td>Rəşad Quliyev</td>
+                                    <td>Divar rənglənməsi</td>
+                                    <td>15.07.2025</td>
+                                    <td><span class="status completed" data-key="status_completed"></span></td>
+                                    <td>250 AZN</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 2. PROFİL TƏNZİMLƏMƏLƏRİ BÖLMƏSİ -->
+                <section id="settings" class="content-section">
+                    <div class="content-header">
+                        <h2 data-key="dashboard_settings"></h2>
+                    </div>
+                    <div class="card">
+                        <form>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="full-name" data-key="signup_fullname"></label>
+                                    <input type="text" id="full-name" value="Aygün Səmədova">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" data-key="login_phone"></label>
+                                    <input type="tel" id="phone" value="+994 50 123 45 67">
+                                </div>
+                            </div>
+                            <hr style="border: 1px solid var(--light-color); margin: 20px 0;">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="current-password" data-key="settings_current_password"></label>
+                                    <input type="password" id="current-password">
+                                </div>
+                                 <div class="form-group">
+                                    <label for="new-password" data-key="settings_new_password"></label>
+                                    <input type="password" id="new-password">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" data-key="settings_save"></button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 3. YADDA SAXLANILAN USTALAR BÖLMƏSİ -->
+                <section id="saved-masters" class="content-section">
+                    <div class="content-header">
+                        <h2 data-key="dashboard_saved_masters"></h2>
+                    </div>
+                    <div class="masters-container">
+                        <div class="master-card">
+                            <img src="https://images.pexels.com/photos/5409015/pexels-photo-5409015.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Usta">
+                            <h4>Elvin Məmmədov</h4>
+                            <p data-key="cat_plumbing"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. MESAJLAR BÖLMƏSİ -->
+                <section id="messages" class="content-section">
+                    <div class="content-header">
+                        <h2 data-key="dashboard_messages"></h2>
+                    </div>
+                    <div class="card messages-layout">
+                        <div class="chat-list">
+                            <div class="chat-item active">
+                                <img src="https://images.pexels.com/photos/5409015/pexels-photo-5409015.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Usta">
+                                <div class="chat-item-info">
+                                    <h5>Elvin Məmmədov</h5>
+                                    <p>Oldu, sabah saat 10-da...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-window">
+                            <div class="chat-header">
+                                <h5>Elvin Məmmədov</h5>
+                            </div>
+                            <div class="chat-messages">
+                                <!-- Mesajlar bura gələcək -->
+                            </div>
+                            <div class="chat-footer">
+                                <input type="text" placeholder="Mesajınızı yazın...">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- USTA PANELİ SƏHİFƏSİ -->
+<div id="master-dashboard-page" class="page">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3 id="master-dashboard-username"></h3>
+                <p data-key="dashboard_master_panel"></p>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="nav-link active" data-target="new-orders"><span class="icon">🔔</span> <span data-key="dashboard_new_orders"></span></a></li>
+                <li><a href="#" class="nav-link" data-target="my-services"><span class="icon">🛠️</span> <span data-key="dashboard_my_services"></span></a></li>
+                <li><a href="#" class="nav-link" data-target="edit-profile"><span class="icon">👤</span> <span data-key="dashboard_edit_profile"></span></a></li>
+                <li><a href="#" class="nav-link" data-target="calendar"><span class="icon">📅</span> <span data-key="dashboard_calendar"></span></a></li>
+                <li><a href="#" class="nav-link" data-target="master-messages"><span class="icon">✉️</span> <span data-key="dashboard_messages"></span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" data-page="customer-dashboard" data-key="switch_to_customer_panel"></a>
+                <a href="#" data-page="home" data-key="back_to_home"></a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <!-- 1. Yeni Sifarişlər Bölməsi -->
+            <section id="new-orders" class="content-section active">
+                <div class="content-header">
+                    <h2 data-key="dashboard_new_orders"></h2>
+                </div>
+                <div class="card">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th data-key="table_customer"></th>
+                                <th data-key="table_service"></th>
+                                <th data-key="table_date"></th>
+                                <th data-key="table_actions"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Aygün Səmədova</td>
+                                <td>Kondisioner təmiri</td>
+                                <td>21.08.2025</td>
+                                <td>
+                                    <button class="action-btn accept" data-key="action_accept"></button>
+                                    <button class="action-btn reject" data-key="action_reject"></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Mənim Xidmətlərim Bölməsi -->
+            <section id="my-services" class="content-section">
+                <div class="content-header">
+                    <h2 data-key="dashboard_my_services"></h2>
+                </div>
+                <div class="card">
+                    <table class="table">
+                         <thead>
+                            <tr>
+                                <th data-key="service_name"></th>
+                                <th data-key="service_price"></th>
+                                <th data-key="table_actions"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="my-services-table-body">
+                            <!-- Xidmətlər bura JavaScript ilə yüklənəcək -->
+                        </tbody>
+                    </table>
+                    <div class="form-actions">
+                        <button type="button" class="form-button" data-key="add_new_service"></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Profilimi Redaktə Et Bölməsi -->
+            <section id="edit-profile" class="content-section">
+                <div class="content-header">
+                    <h2 data-key="dashboard_edit_profile"></h2>
+                </div>
+                <div class="card">
+                    <form id="edit-profile-form">
+                    <div class="form-group">
+                        <label for="master-full-name" data-key="signup_fullname"></label>
+                        <input type="text" id="master-full-name" name="fullName">
+                    </div>
+                    <div class="form-group">
+                        <label for="master-about-me" data-key="profile_about_me"></label>
+                        <textarea id="master-about-me" name="aboutMe" rows="5"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" data-key="settings_save"></button>
+                    </div>
+                </form>
+                </div>
+            </section>
+
+            <!-- 4. İş Təqvimi Bölməsi -->
+            <section id="calendar" class="content-section">
+                <div class="content-header">
+                    <h2 data-key="dashboard_calendar"></h2>
+                </div>
+                <div class="card">
+                    <div class="calendar">
+                        <div class="calendar-day header">B.E.</div><div class="calendar-day header">Ç.A.</div><div class="calendar-day header">Ç.</div><div class="calendar-day header">C.A.</div><div class="calendar-day header">C.</div><div class="calendar-day header">Ş.</div><div class="calendar-day header">B.</div>
+                        <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day busy">3</div>
+                        <div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Mesajlar Bölməsi -->
+            <section id="master-messages" class="content-section">
+                 <div class="content-header">
+                    <h2 data-key="dashboard_messages"></h2>
+                </div>
+                <div class="card messages-layout">
+                    <!-- Mesajlar hissəsi Müştəri Paneli ilə eynidir -->
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+<!-- YENİ: ADMİN PANELİ SƏHİFƏSİ -->
+<div id="admin-dashboard-page" class="page">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Panel</h3>
+                <p>Saytın İdarəetməsi</p>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="nav-link active" data-target="all-users"><span class="icon">👥</span> İstifadəçilər</a></li>
+            </ul>
+             <div class="sidebar-footer">
+                <a href="#" data-page="home">← Ana Səhifəyə Qayıt</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <section id="all-users" class="content-section active">
+                <div class="content-header">
+                    <h2>Bütün İstifadəçilər</h2>
+                </div>
+                <div class="card">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Ad, Soyad</th>
+                                <th>E-mail</th>
+                                <th>İstifadəçi Növü</th>
+                                <th>Qeydiyyat ID (UID)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- İstifadəçilər bura JavaScript ilə əlavə olunacaq -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column"> <h4 data-key="footer_about_us"></h4> <a href="#" data-key="footer_about_company"></a> <a href="#" data-key="footer_careers"></a> </div>
+            <div class="footer-column"> <h4 data-key="footer_help"></h4> <a href="#" data-key="footer_faq"></a> <a href="#" data-key="footer_contact"></a> </div>
+            <div class="footer-column"> <h4 data-key="footer_follow_us"></h4> <a href="#">Facebook</a> <a href="#">Instagram</a> <a href="#">Youtube</a> </div>
+        </div>
+        <div class="footer-newsletter">
+            <h4 data-key="newsletter_title"></h4>
+            <form id="newsletter-form" class="newsletter-form">
+                <input type="email" data-key="newsletter_placeholder" required>
+                <button type="submit" data-key="newsletter_button"></button>
+            </form>
+        </div>
+        <div class="footer-bottom"> <p>&copy; 2025 Ustan.az. <span data-key="footer_rights"></span></p> </div>
+    </footer>
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+    <h2>Daxil Ol</h2>
+
+    <form id="login-form">
+  <!-- Email -->
+  <div class="input-group">
+    <label for="login-email">Email</label>
+    <input type="email" id="login-email" placeholder="Email" required>
+  </div>
+
+  <!-- Şifrə -->
+  <div class="input-group">
+    <label for="login-password">Şifrə</label>
+    <input type="password" id="login-password" placeholder="Şifrə" required>
+  </div>
+
+  <!-- Yadda saxla və Şifrəmi unutdum -->
+  <div class="extra-options">
+  <div class="remember-me">
+    <input type="checkbox" id="remember-me">
+    <label for="remember-me">Yadda saxla</label>
+  </div>
+  <a href="#" id="forgot-password">Şifrəmi unutdum</a>
+</div>
+
+  <!-- Login düyməsi -->
+  <button type="submit" class="modal-button">Daxil ol</button>
+
+  <!-- Sosial login -->
+  <div class="social-login">
+    <p>və ya sosial şəbəkə ilə</p>
+    <div class="social-buttons">
+      <button type="button" class="google-btn">Google</button>
+      <button type="button" class="facebook-btn">Facebook</button>
+    </div>
+  </div>
+</form>
+
+<!-- SIGNUP MODAL -->
+<div id="signup-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="document.getElementById('signup-modal').style.display='none'">&times;</span>
+    <h2>Qeydiyyat</h2>
+
+    <form id="signup-form">
+      <!-- Müştəri və ya Usta seçimi -->
+      <div class="user-type-selection">
+        <label>
+            <input type="radio" name="userType" value="customer" checked> <!-- 'musteri' 'customer' ilə əvəz olundu -->
+          Müştəri
+        </label>
+        <label>
+          <input type="radio" name="userType" value="usta">
+          Usta
+        </label>
+      </div>
+
+      <!-- Ad Soyad -->
+      <div class="input-group">
+        <label for="signup-name">Ad və Soyad</label>
+        <input type="text" id="signup-name" name="fullName" placeholder="Ad Soyad" required>      
+        </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" name="email" placeholder="Email" required>
+      </div>
+
+      <!-- Şifrə -->
+      <div class="input-group">
+        <label for="signup-password">Şifrə</label>
+        <input type="password" id="signup-password" name="password" placeholder="Şifrə" required>
+      </div>
+
+      <!-- Şifrəni təkrar -->
+      <div class="input-group">
+        <label for="signup-password-repeat">Şifrəni təkrar</label>
+        <input type="password" id="signup-password-repeat" name="passwordRepeat" placeholder="Şifrəni təkrar" required>
+      </div>
+
+      <button type="submit" class="modal-button">Qeydiyyat</button>
+    </form>
+  </div>
+</div>
+
+<!-- YENİ: XİDMƏT ƏLAVƏ ET MODALI -->
+<div id="add-service-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Yeni Xidmət Əlavə Et</h2>
+        <form id="add-service-form">
+            <div class="input-group">
+                <label for="service-name">Xidmətin adı</label>
+                <input type="text" id="service-name" name="serviceName" required>
+            </div>
+            <div class="input-group">
+                <label for="service-price">Qiymət (məs: 25 AZN və ya 15 AZN-dən)</label>
+                <input type="text" id="service-price" name="servicePrice" required>
+            </div>
+            <button type="submit" class="modal-button">Əlavə Et</button>
+        </form>
+    </div>
+</div>
+<!-- YENİ: Firebase Kitabxanaları və Başlatma Kodu -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script>
+  // Sizin Firebase layihənizin konfiqurasiyası
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJkJOKiEFeo1tC37r6AC_uiwA-Q5Vyd3s",
+    authDomain: "ustan-az-project.firebaseapp.com",
+    projectId: "ustan-az-project",
+    storageBucket: "ustan-az-project.firebasestorage.app",
+    messagingSenderId: "822083164942",
+    appId: "1:822083164942:web:b439a4855c5d44d9a4d55f",
+    measurementId: "G-S44YL21SYH"
+  };
+
+  // Firebase-i başlat
+  firebase.initializeApp(firebaseConfig);
+  console.log("Firebase uğurla inteqrasiya olundu!");
+  </script> 
+  
+
+<script>
+       
+const translations = {
+    az: {
+        slogan: "Keyfiyyətli xidmət, etibarlı ustalar.", login: "Daxil Ol", signup: "Qeydiyyat",
+        hero_title: "Ən Yaxşı Ustanı Tapın", hero_subtitle: "Santexnika, elektrik, təmir və digər yüzlərlə xidmət bir ünvanda",
+        search_placeholder: "Hansı xidmətə ehtiyacınız var? Məsələn, 'kondisioner təmiri'", search_button: "Axtar",
+        categories_title: "Populyar Kateqoriyalar",
+        cat_plumbing: "Santexnika", cat_electric: "Elektrik", cat_repair: "Təmir işləri", cat_design: "Dizayn", cat_transport: "Nəqliyyat",
+        how_it_works_title: "Necə İşləyir?",
+        step1_title: "Axtar", step1_desc: "Sizə lazım olan xidməti axtarışa daxil edin və ya kateqoriyalardan seçin.",
+        step2_title: "Seç", step2_desc: "Ustaların profillərini, reytinqlərini və rəylərini müqayisə edərək ən uyğununu seçin.",
+        step3_title: "Razılaş", step3_desc: "İşin detallarını və qiymətini birbaşa usta ilə razılaşdırıb sifarişinizi təsdiqləyin.",
+        stats_masters: "Qeydiyyatlı Usta", stats_jobs: "Tamamlanan İş", stats_clients: "Məmnun Müştəri",
+        featured_tag: "Həftənin Xidməti", featured_title: "Kondisioner Təmizlənməsi", featured_desc: "Yay gəlmədən kondisionerinizə peşəkar qulluq göstərin! Tozdan, mikroblardan təmizlənmiş və qazı yoxlanılmış kondisionerlə sərinliyin dadını çıxarın.", featured_button: "İndi Sifariş Et",
+        partners_title: "Tərəfdaşlarımız",
+        top_masters_title: "Top Reytinqli Ustalar",
+        cta_title: "Öz Xidmətlərinizi Təklif Edin", cta_desc: "Peşəkar ustasınız? Bizə qoşulun, yeni müştərilər qazanın və gəlirinizi artırın.", cta_button: "Usta Kimi Qeydiyyatdan Keç",
+        premium_ads_title: "Premium Elanlar",
+        ad1_title: "Mənzillərin Tam Təmiri", ad1_desc: "Dizayndan təmirə tam xidmət. Peşəkar komanda ilə evinizi yeniləyin.",
+        ad2_title: "Yük Daşıma Xidməti", ad2_desc: "Şəhərdaxili və bölgələrə etibarlı yük daşıma. 24/7 xidmətinizdəyik.",
+        testimonials_title: "Müştərilərimiz Nə Deyir?",
+        testimonial1_quote: "\"Kondisionerim xarab olmuşdu, yarım saata usta tapdım. Çox sürətli və keyfiyyətli xidmət idi. Təşəkkürlər!\"", testimonial1_author: "- Anar Kərimov",
+        testimonial2_quote: "\"Evin elektrik sistemini tamamilə bu platformadan tapdığım usta ilə yenilədim. Qiymətlər münasib, iş isə peşəkar idi.\"", testimonial2_author: "- Leyla Həsənova",
+        blog_title: "Son Məqalələr",
+        blog1_title: "Düzgün Divar Rəngini Necə Seçməli?", blog1_desc: "Evinizin aurasını dəyişəcək rəng seçimi üçün 5 peşəkar məsləhət...",
+        blog2_title: "Santexnika Problemlərinin 5 Erkən Əlaməti", blog2_desc: "Böyük xərclərdən yayınmaq üçün bu əlamətlərə diqqət yetirin...",
+        faq_title: "Tez-tez Verilən Suallar",
+        faq1_q: "Ustan.az necə işləyir?", faq1_a: "Siz sadəcə lazım olan xidməti axtarırsınız, biz isə sizə ən uyğun, yoxlanılmış ustaları təqdim edirik. Profillərə baxıb seçim edirsiniz və usta ilə birbaşa əlaqə saxlayırsınız.",
+        faq2_q: "Xidmət üçün ödənişi necə edirəm?", faq2_a: "Ödəniş birbaşa usta ilə sizin aranızda razılaşdırılır. Platformamız hazırda ödəniş prosesində iştirak etmir.",
+        footer_about_us: "Haqqımızda", footer_about_company: "Şirkət haqqında", footer_careers: "Karyera",
+        footer_help: "Yardım", footer_faq: "Sual-Cavab (FAQ)", footer_contact: "Əlaqə",
+        footer_follow_us: "Bizi İzləyin", footer_rights: "Bütün hüquqlar qorunur.",
+        newsletter_title: "Yeniliklərdən Xəbərdar Olun", newsletter_placeholder: "E-mailinizi daxil edin", newsletter_button: "Abunə Ol",
+        login_modal_title: "Daxil Ol", login_phone: "Telefon nömrəsi", login_password: "Şifrə",
+        login_remember: "Yadda saxla", login_social: "və ya sosial şəbəkə ilə",
+        login_forgot_password: "Şifrəmi unutdum", back_to_login: "Giriş səhifəsinə qayıt",
+        reset_password_title: "Şifrəni Bərpa Et", reset_password_button: "Bərpa Et",
+        signup_modal_title: "Qeydiyyat", signup_fullname: "Ad və Soyad", signup_password_repeat: "Şifrəni təkrarla",
+        signup_i_am: "Mən:", signup_customer: "Müştəri", signup_master: "Usta",
+        signup_no_account: "Hesabınız yoxdur?",
+        search_results_title: "Axtarış Nəticələri", back_to_home: "← Ana Səhifəyə Qayıt",
+        dashboard_button: "Panel", logout_button: "Çıxış", welcome_message: "Xoş gəldin,",dashboard_customer_panel: "Müştəri Paneli", dashboard_orders: "Sifarişlərim", dashboard_settings: "Tənzimləmələr", dashboard_saved_masters: "Yadda Saxlanan Ustalar", dashboard_messages: "Mesajlar", switch_to_master_panel: "Usta Panelinə Keç", table_master: "Usta", table_service: "Xidmət", table_date: "Tarix", table_status: "Status", table_price: "Qiymət", status_active: "Aktiv", status_completed: "Tamamlanıb", settings_current_password: "Cari Şifrə", settings_new_password: "Yeni Şifrə", settings_save: "Yadda Saxla", dashboard_master_panel: "Usta Paneli", dashboard_new_orders: "Yeni Sifarişlər", dashboard_my_services: "Mənim Xidmətlərim", dashboard_edit_profile: "Profili Redaktə Et", dashboard_calendar: "İş Təqvimi", switch_to_customer_panel: "Müştəri Panelinə Keç", table_customer: "Müştəri", table_actions: "Əməliyyatlar", action_accept: "Qəbul Et", action_reject: "Rədd Et", action_edit: "Redaktə Et", add_new_service: "Yeni Xidmət Əlavə Et", profile_about_me: "Mənim Haqqımda"
+
+    },
+    en: {
+        slogan: "Quality service, reliable masters.", login: "Login", signup: "Sign Up",
+        hero_title: "Find the Best Craftsman", hero_subtitle: "Plumbing, electricity, repairs and hundreds of other services at one address",
+        search_placeholder: "What service do you need? E.g., 'air conditioner repair'", search_button: "Search",
+        categories_title: "Popular Categories",
+        cat_plumbing: "Plumbing", cat_electric: "Electricity", cat_repair: "Repair Works", cat_design: "Design", cat_transport: "Transportation",
+        how_it_works_title: "How It Works?",
+        step1_title: "Search", step1_desc: "Enter the service you need in the search or select from the categories.",
+        step2_title: "Choose", step2_desc: "Compare profiles, ratings, and reviews of masters to choose the most suitable one.",
+        step3_title: "Agree", step3_desc: "Agree on the job details and price directly with the master and confirm your order.",
+        stats_masters: "Registered Masters", stats_jobs: "Completed Jobs", stats_clients: "Happy Clients",
+        featured_tag: "Service of the Week", featured_title: "Air Conditioner Cleaning", featured_desc: "Get professional care for your air conditioner before summer arrives! Enjoy the coolness with an AC cleaned of dust, germs, and checked for gas.", featured_button: "Order Now",
+        partners_title: "Our Partners",
+        top_masters_title: "Top Rated Masters",
+        cta_title: "Offer Your Services", cta_desc: "Are you a professional craftsman? Join us, find new clients, and increase your income.", cta_button: "Register as a Master",
+        premium_ads_title: "Premium Ads",
+        ad1_title: "Full Apartment Renovation", ad1_desc: "Full service from design to renovation. Renew your home with a professional team.",
+        ad2_title: "Cargo Transportation Service", ad2_desc: "Reliable cargo transportation within the city and to the regions. At your service 24/7.",
+        testimonials_title: "What Our Clients Say?",
+        testimonial1_quote: "\"My air conditioner was broken, I found a master in half an hour. Very fast and high-quality service. Thanks!\"", testimonial1_author: "- Anar Karimov",
+        testimonial2_quote: "\"I completely renewed the electrical system of the house with a master I found on this platform. The prices were reasonable, and the work was professional.\"", testimonial2_author: "- Leyla Hasanova",
+        blog_title: "Recent Articles",
+        blog1_title: "How to Choose the Right Wall Color?", blog1_desc: "5 professional tips for choosing a color that will change the aura of your home...",
+        blog2_title: "5 Early Signs of Plumbing Problems", blog2_desc: "Pay attention to these signs to avoid major expenses...",
+        faq_title: "Frequently Asked Questions",
+        faq1_q: "How does Ustan.az work?", faq1_a: "You just search for the service you need, and we present you with the most suitable, verified masters. You look at the profiles, make a choice, and contact the master directly.",
+        faq2_q: "How do I pay for the service?", faq2_a: "Payment is agreed directly between you and the master. Our platform does not currently participate in the payment process.",
+        footer_about_us: "About Us", footer_about_company: "About Company", footer_careers: "Careers",
+        footer_help: "Help", footer_faq: "FAQ", footer_contact: "Contact",
+        footer_follow_us: "Follow Us", footer_rights: "All rights reserved.",
+        newsletter_title: "Stay Updated", newsletter_placeholder: "Enter your e-mail", newsletter_button: "Subscribe",
+        login_modal_title: "Login", login_phone: "Phone number", login_password: "Password",
+        login_remember: "Remember me", login_social: "or login with social media",
+        login_forgot_password: "Forgot password", back_to_login: "Back to login",
+        reset_password_title: "Reset Password", reset_password_button: "Reset",
+        signup_modal_title: "Sign Up", signup_fullname: "Full Name", signup_password_repeat: "Repeat Password",
+        signup_i_am: "I am a:", signup_customer: "Customer", signup_master: "Master",
+        signup_no_account: "Don't have an account?",
+        search_results_title: "Search Results", back_to_home: "← Back to Home",
+        dashboard_button: "Dashboard", logout_button: "Logout", welcome_message: "Welcome,",dashboard_customer_panel: "Customer Panel", dashboard_orders: "My Orders", dashboard_settings: "Settings", dashboard_saved_masters: "Saved Masters", dashboard_messages: "Messages", switch_to_master_panel: "Switch to Master Panel", table_master: "Master", table_service: "Service", table_date: "Date", table_status: "Status", table_price: "Price", status_active: "Active", status_completed: "Completed", settings_current_password: "Current Password", settings_new_password: "New Password", settings_save: "Save", dashboard_master_panel: "Master Panel", dashboard_new_orders: "New Orders", dashboard_my_services: "My Services", dashboard_edit_profile: "Edit Profile", dashboard_calendar: "Work Calendar", switch_to_customer_panel: "Switch to Customer Panel", table_customer: "Customer", table_actions: "Actions", action_accept: "Accept", action_reject: "Reject", action_edit: "Edit", add_new_service: "Add New Service", profile_about_me: "About Me"
+
+    },
+    ru: {
+        slogan: "Качественный сервис, надежные мастера.", login: "Войти", signup: "Регистрация",
+        hero_title: "Найдите Лучшего Мастера", hero_subtitle: "Сантехника, электрика, ремонт и сотни других услуг по одному адресу",
+        search_placeholder: "Какая услуга вам нужна? Например, 'ремонт кондиционера'", search_button: "Найти",
+        categories_title: "Популярные Категории",
+        cat_plumbing: "Сантехника", cat_electric: "Электрика", cat_repair: "Ремонтные работы", cat_design: "Дизайн", cat_transport: "Транспорт",
+        how_it_works_title: "Как это работает?",
+        step1_title: "Искать", step1_desc: "Введите нужную услугу в поиске или выберите из категорий.",
+        step2_title: "Выбрать", step2_desc: "Сравните профили, рейтинги и отзывы мастеров, чтобы выбрать наиболее подходящего.",
+        step3_title: "Договориться", step3_desc: "Согласуйте детали работы и цену напрямую с мастером и подтвердите заказ.",
+        stats_masters: "Зарегистрированных мастеров", stats_jobs: "Выполненных работ", stats_clients: "Довольных клиентов",
+        featured_tag: "Услуга недели", featured_title: "Чистка кондиционера", featured_desc: "Обеспечьте профессиональный уход за своим кондиционером до наступления лета! Наслаждайтесь прохладой с кондиционером, очищенным от пыли, микробов и с проверенным газом.", featured_button: "Заказать сейчас",
+        partners_title: "Наши партнеры",
+        top_masters_title: "Мастера с высоким рейтингом",
+        cta_title: "Предложите свои услуги", cta_desc: "Вы профессиональный мастер? Присоединяйтесь к нам, находите новых клиентов и увеличивайте свой доход.", cta_button: "Зарегистрироваться как мастер",
+        premium_ads_title: "Премиум-объявления",
+        ad1_title: "Полный ремонт квартир", ad1_desc: "Полный комплекс услуг от дизайна до ремонта. Обновите свой дом с профессиональной командой.",
+        ad2_title: "Услуги грузоперевозок", ad2_desc: "Надежные грузоперевозки по городу и в регионы. К вашим услугам 24/7.",
+        testimonials_title: "Что говорят наши клиенты?",
+        testimonial1_quote: "\"Сломался кондиционер, нашел мастера за полчаса. Очень быстрый и качественный сервис. Спасибо!\"", testimonial1_author: "- Анар Керимов",
+        testimonial2_quote: "\"Полностью обновила электросистему дома с мастером, которого нашла на этой платформе. Цены приемлемые, а работа профессиональная.\"", testimonial2_author: "- Лейла Гасанова",
+        blog_title: "Последние статьи",
+        blog1_title: "Как выбрать правильный цвет стен?", blog1_desc: "5 профессиональных советов по выбору цвета, который изменит ауру вашего дома...",
+        blog2_title: "5 ранних признаков проблем с сантехникой", blog2_desc: "Обратите внимание на эти признаки, чтобы избежать больших расходов...",
+        faq_title: "Часто задаваемые вопросы",
+        faq1_q: "Как работает Ustan.az?", faq1_a: "Вы просто ищете нужную вам услугу, а мы представляем вам наиболее подходящих, проверенных мастеров. Вы просматриваете профили, делаете выбор и связываетесь с мастером напрямую.",
+        faq2_q: "Как я оплачиваю услугу?", faq2_a: "Оплата согласовывается напрямую между вами и мастером. Наша платформа в настоящее время не участвует в процессе оплаты.",
+        footer_about_us: "О нас", footer_about_company: "О компании", footer_careers: "Карьера",
+        footer_help: "Помощь", footer_faq: "ЧаВо", footer_contact: "Контакты",
+        footer_follow_us: "Следите за нами", footer_rights: "Все права защищены.",
+        newsletter_title: "Будьте в курсе новостей", newsletter_placeholder: "Введите ваш e-mail", newsletter_button: "Подписаться",
+        login_modal_title: "Войти", login_phone: "Номер телефона", login_password: "Пароль",
+        login_remember: "Запомнить меня", login_social: "или войдите через соцсети",
+        login_forgot_password: "Забыли пароль?", back_to_login: "Вернуться на страницу входа",
+        reset_password_title: "Сбросить пароль", reset_password_button: "Сбросить",
+        signup_modal_title: "Регистрация", signup_fullname: "Имя и Фамилия", signup_password_repeat: "Повторите пароль",
+        signup_i_am: "Я:", signup_customer: "Клиент", signup_master: "Мастер",
+        signup_no_account: "Нет аккаунта?",
+        search_results_title: "Результаты поиска", back_to_home: "← Вернуться на главную",
+        dashboard_button: "Панель", logout_button: "Выйти", welcome_message: "Добро пожаловать,",dashboard_customer_panel: "Панель клиента", dashboard_orders: "Мои заказы", dashboard_settings: "Настройки", dashboard_saved_masters: "Сохраненные мастера", dashboard_messages: "Сообщения", switch_to_master_panel: "Переключиться на панель мастера", table_master: "Мастер", table_service: "Услуга", table_date: "Дата", table_status: "Статус", table_price: "Цена", status_active: "Активен", status_completed: "Завершено", settings_current_password: "Текущий пароль", settings_new_password: "Новый пароль", settings_save: "Сохранить", dashboard_master_panel: "Панель мастера", dashboard_new_orders: "Новые заказы", dashboard_my_services: "Мои услуги", dashboard_edit_profile: "Редактировать профиль", dashboard_calendar: "Рабочий календарь", switch_to_customer_panel: "Переключиться на панель клиента", table_customer: "Клиент", table_actions: "Действия", action_accept: "Принять", action_reject: "Отклонить", action_edit: "Редактировать", add_new_service: "Добавить новую услугу", profile_about_me: "Обо мне"
+
+    },
+    tr: {
+        slogan: "Kaliteli hizmet, güvenilir ustalar.", login: "Giriş Yap", signup: "Kayıt Ol",
+        hero_title: "En İyi Ustayı Bul", hero_subtitle: "Tesisat, elektrik, tamir ve diğer yüzlerce hizmet tek adreste",
+        search_placeholder: "Hangi hizmete ihtiyacınız var? Örn: 'klima tamiri'", search_button: "Ara",
+        categories_title: "Popüler Kategoriler",
+        cat_plumbing: "Tesisat", cat_electric: "Elektrik", cat_repair: "Tamir İşleri", cat_design: "Tasarım", cat_transport: "Nakliyat",
+        how_it_works_title: "Nasıl Çalışır?",
+        step1_title: "Ara", step1_desc: "İhtiyacınız olan hizmeti aramaya girin veya kategorilerden seçin.",
+        step2_title: "Seç", step2_desc: "En uygun olanı seçmek için ustaların profillerini, puanlarını ve yorumlarını karşılaştırın.",
+        step3_title: "Anlaş", step3_desc: "İşin detaylarını ve fiyatını doğrudan usta ile görüşüp siparişinizi onaylayın.",
+        stats_masters: "Kayıtlı Usta", stats_jobs: "Tamamlanan İş", stats_clients: "Mutlu Müşteri",
+        featured_tag: "Haftanın Hizmeti", featured_title: "Klima Temizliği", featured_desc: "Yaz gelmeden klimanıza profesyonel bakım yaptırın! Tozdan, mikroplardan arındırılmış ve gazı kontrol edilmiş bir klima ile serinliğin tadını çıkarın.", featured_button: "Şimdi Sipariş Ver",
+        partners_title: "Ortaklarımız",
+        top_masters_title: "En Yüksek Puanlı Ustalar",
+        cta_title: "Hizmetlerinizi Sunun", cta_desc: "Profesyonel bir usta mısınız? Bize katılın, yeni müşteriler bulun ve gelirinizi artırın.", cta_button: "Usta Olarak Kaydol",
+        premium_ads_title: "Premium İlanlar",
+        ad1_title: "Komple Daire Tadilatı", ad1_desc: "Tasarımdan tadilata tam hizmet. Profesyonel bir ekiple evinizi yenileyin.",
+        ad2_title: "Yük Taşıma Hizmeti", ad2_desc: "Şehir içi ve bölgelere güvenilir yük taşıma. 7/24 hizmetinizdeyiz.",
+        testimonials_title: "Müşterilerimiz Ne Diyor?",
+        testimonial1_quote: "\"Klimam bozulmuştu, yarım saat içinde bir usta buldum. Çok hızlı ve kaliteli bir hizmetti. Teşekkürler!\"", testimonial1_author: "- Anar Kerimov",
+        testimonial2_quote: "\"Evin elektrik tesisatını bu platformdan bulduğum bir ustayla tamamen yeniledim. Fiyatlar makul, iş ise profesyoneldi.\"", testimonial2_author: "- Leyla Hasanova",
+        blog_title: "Son Makaleler",
+        blog1_title: "Doğru Duvar Rengi Nasıl Seçilir?", blog1_desc: "Evinizin aurasını değiştirecek renk seçimi için 5 profesyonel ipucu...",
+        blog2_title: "Tesisat Sorunlarının 5 Erken Belirtisi", blog2_desc: "Büyük masraflardan kaçınmak için bu belirtilere dikkat edin...",
+        faq_title: "Sıkça Sorulan Sorular",
+        faq1_q: "Ustan.az nasıl çalışır?", faq1_a: "Sadece ihtiyacınız olan hizmeti ararsınız, biz de size en uygun, doğrulanmış ustaları sunarız. Profillere bakar, seçiminizi yapar ve usta ile doğrudan iletişime geçersiniz.",
+        faq2_q: "Hizmet için nasıl ödeme yaparım?", faq2_a: "Ödeme doğrudan siz ve usta arasında kararlaştırılır. Platformamız şu anda ödeme sürecine dahil olmamaktadır.",
+        footer_about_us: "Hakkımızda", footer_about_company: "Şirket Hakkında", footer_careers: "Kariyer",
+        footer_help: "Yardım", footer_faq: "SSS", footer_contact: "İletişim",
+        footer_follow_us: "Bizi Takip Edin", footer_rights: "Tüm hakları saklıdır.",
+        newsletter_title: "Yeniliklerden Haberdar Olun", newsletter_placeholder: "E-postanızı girin", newsletter_button: "Abone Ol",
+        login_modal_title: "Giriş Yap", login_phone: "Telefon numarası", login_password: "Şifre",
+        login_remember: "Beni hatırla", login_social: "veya sosyal medya ile giriş yap",
+        login_forgot_password: "Şifremi unuttum", back_to_login: "Giriş sayfasına geri dön",
+        reset_password_title: "Şifreyi Sıfırla", reset_password_button: "Sıfırla",
+        signup_modal_title: "Kayıt Ol", signup_fullname: "Ad ve Soyad", signup_password_repeat: "Şifreyi tekrarla",
+        signup_i_am: "Ben bir:", signup_customer: "Müşteri", signup_master: "Usta",
+        signup_no_account: "Hesabın yok mu?",
+        search_results_title: "Arama Sonuçları", back_to_home: "← Ana Sayfaya Dön",
+        dashboard_button: "Panel", logout_button: "Çıkış Yap", welcome_message: "Hoş geldin,",dashboard_customer_panel: "Müşteri Paneli", dashboard_orders: "Siparişlerim", dashboard_settings: "Ayarlar", dashboard_saved_masters: "Kaydedilen Ustalar", dashboard_messages: "Mesajlar", switch_to_master_panel: "Usta Paneline Geç", table_master: "Usta", table_service: "Hizmet", table_date: "Tarih", table_status: "Durum", table_price: "Fiyat", status_active: "Aktif", status_completed: "Tamamlandı", settings_current_password: "Mevcut Şifre", settings_new_password: "Yeni Şifre", settings_save: "Kaydet", dashboard_master_panel: "Usta Paneli", dashboard_new_orders: "Yeni Siparişler", dashboard_my_services: "Hizmetlerim", dashboard_edit_profile: "Profili Düzenle", dashboard_calendar: "İş Takvimi", switch_to_customer_panel: "Müşteri Paneline Geç", table_customer: "Müşteri", table_actions: "İşlemler", action_accept: "Kabul Et", action_reject: "Reddet", action_edit: "Düzenle", add_new_service: "Yeni Hizmet Ekle", profile_about_me: "Hakkımda"
+
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    // YENİ: Firebase servislərini qlobal dəyişənlərə mənimsədək
+const auth = firebase.auth();
+const db = firebase.firestore();
+    // YENİ: Bildiriş göstərmək üçün funksiya
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById('notification');
+    if (!notification) return;
+
+    notification.textContent = message;
+    notification.className = 'notification'; // Əvvəlki klassları təmizlə
+    notification.classList.add('show');
+    if (type === 'error') {
+        notification.classList.add('error');
+    }
+
+    // 3 saniyə sonra bildirişi gizlət
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+    // BÜTÜN ELEMENTLƏRİ ƏVVƏLCƏDƏN TAPAQ
+    const languageSwitcher = document.getElementById('language-switcher');
+    const pages = document.querySelectorAll('.page');
+    const loginModal = document.getElementById('login-modal');
+    const signupModal = document.getElementById('signup-modal');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtnHeader = document.getElementById('signup-btn-header');
+    const signupBtnCta = document.getElementById('signup-btn-cta');
+    const goToRegisterLink = document.getElementById('go-to-register-link');
+    const authButtons = document.getElementById('auth-buttons');
+    const userGreeting = document.getElementById('user-greeting');
+    const greetingText = document.getElementById('greeting-text');
+    const logoutBtn = document.getElementById('logout-btn');
+    const signupForm = document.getElementById('signup-form');
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    const loginForm = document.querySelector('#login-modal form');
+    const adminPanelBtn = document.getElementById('admin-panel-btn');
+
+    // DİL DƏYİŞMƏ FUNKSİYASI
+    function setLanguage(lang) {
+        if (!translations[lang] || Object.keys(translations[lang]).length === 0) lang = 'az';
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.getAttribute('data-key');
+            const translation = translations[lang][key] || translations['az'][key];
+            if (translation) {
+                if (element.placeholder !== undefined) {
+                    element.placeholder = translation;
+                } else {
+                    element.innerText = translation;
+                }
+            }
+        });
+    }
+    languageSwitcher.addEventListener('change', (event) => setLanguage(event.target.value));
+
+    // SƏHİFƏ NAVİQASİYASI FUNKSİYASI
+    function showPage(pageId) {
+        pages.forEach(page => page.classList.remove('active'));
+        const newPage = document.getElementById(pageId + '-page');
+        if (newPage) {
+            newPage.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    }
+    document.querySelectorAll('[data-page]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            showPage(pageId);
+        });
+    });
+    
+    // MODAL PƏNCƏRƏ FUNKSİYALARI
+    function openModal(modal) { if(modal) modal.style.display = 'block'; }
+    function closeModal(modal) { if(modal) modal.style.display = 'none'; }
+
+    document.querySelectorAll('.modal').forEach(modal => {
+        const closeBtn = modal.querySelector('.close-btn');
+        if(closeBtn) closeBtn.onclick = () => closeModal(modal);
+    });
+    window.onclick = event => {
+        if (event.target == loginModal) closeModal(loginModal);
+        if (event.target == signupModal) closeModal(signupModal);
+    }
+    
+    if(loginBtn) loginBtn.onclick = () => openModal(loginModal);
+    if(signupBtnHeader) signupBtnHeader.onclick = () => openModal(signupModal);
+    if(signupBtnCta) signupBtnCta.onclick = () => openModal(signupModal);
+    if(goToRegisterLink) goToRegisterLink.onclick = (e) => { e.preventDefault(); closeModal(loginModal); openModal(signupModal); };
+
+    // HEADER-İ YENİLƏYƏN FUNKSİYA
+    function updateHeader(userName) {
+        const currentLang = document.documentElement.lang || 'az';
+        if (userName) {
+            authButtons.style.display = 'none';
+            userGreeting.style.display = 'flex';
+            const welcome = translations[currentLang]?.welcome_message || "Welcome,";
+            greetingText.innerText = `${welcome} ${userName}!`;
+        } else {
+            authButtons.style.display = 'flex';
+            userGreeting.style.display = 'none';
+        }
+    }
+
+    // YENİ VƏ TƏKMİLLƏŞDİRİLMİŞ QEYDİYYAT MƏNTİQİ
+if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => { // Funksiyanı 'async' edirik
+        e.preventDefault();
+        const formData = new FormData(signupForm);
+        const fullName = formData.get('fullName');
+        const userType = formData.get('userType');
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const passwordRepeat = formData.get('passwordRepeat');
+
+        // Şifrə yoxlaması (bu artıq sizdə var idi)
+        if (password !== passwordRepeat) {
+            return showNotification('Daxil etdiyiniz şifrələr eyni deyil!', 'error');
+        }
+
+        try {
+            // 1. Firebase Auth ilə yeni istifadəçi yaradırıq
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            // 2. Əlavə məlumatları (ad, istifadəçi növü) Firestore verilənlər bazasında saxlayırıq
+            await db.collection("users").doc(user.uid).set({
+                fullName: fullName,
+                userType: userType,
+                email: email
+            });
+
+            // 3. Uğurlu qeydiyyatdan sonra interfeysi yeniləyirik
+            updateHeader(fullName);
+            closeModal(signupModal);
+            showNotification('Qeydiyyat uğurla tamamlandı!', 'success');
+
+            if (userType === 'master') {
+                showPage('master-dashboard-page');
+            } else {
+                showPage('customer-dashboard-page');
+            }
+
+        } catch (error) {
+            // Xəta baş verərsə, istifadəçiyə məlumat veririk
+            console.error("Qeydiyyat zamanı xəta:", error);
+            if (error.code === 'auth/email-already-in-use') {
+                showNotification('Bu e-mail artıq istifadə olunur.', 'error');
+            } else {
+                showNotification('Qeydiyyat zamanı xəta baş verdi.', 'error');
+            }
+        }
+    });
+}
+
+   // YENİ VƏ DÜZGÜN LOGIN MƏNTİQİ
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            // Firebase ilə daxil olmağa cəhd edirik
+            await auth.signInWithEmailAndPassword(email, password);
+            
+            // Uğurlu girişdən sonra modalı bağlayırıq
+            closeModal(loginModal);
+            showNotification('Hesaba uğurla daxil oldunuz!', 'success');
+            // Qalan işləri (interfeysin yenilənməsi, panelə yönləndirmə)
+            // onAuthStateChanged funksiyası özü avtomatik görəcək.
+
+        } catch (error) {
+            console.error("Giriş zamanı xəta:", error);
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                showNotification('E-mail və ya şifrə yanlışdır.', 'error');
+            } else {
+                showNotification('Giriş zamanı xəta baş verdi.', 'error');
+            }
+        }
+    });
+} 
+   
+   // YENİ ÇIXIŞ MƏNTİQİ
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await auth.signOut();
+            // İstifadəçi uğurla çıxış etdi, qalan işləri auth state listener görəcək
+            showNotification('Hesabdan uğurla çıxış edildi.', 'success');
+        } catch (error) {
+            console.error("Çıxış zamanı xəta:", error);
+            showNotification('Çıxış zamanı xəta baş verdi.', 'error');
+        }
+    });
+}
+
+    // PANELƏ KEÇİD MƏNTİQİ
+    if(dashboardBtn) {
+    dashboardBtn.addEventListener('click', function() {
+        const userType = localStorage.getItem('userType');
+        if (userType === 'master') {
+            showPage('master-dashboard-page'); // DÜZGÜN ID
+        } else {
+            showPage('customer-dashboard-page'); // DÜZGÜN ID
+        }
+    });
+}
+
+// YENİ: ADMİN PANELİNƏ KEÇİD VƏ İSTİFADƏÇİLƏRİ YÜKLƏMƏ MƏNTİQİ
+if(adminPanelBtn) {
+    adminPanelBtn.addEventListener('click', async function() {
+        showPage('admin-dashboard');
+
+        const usersTableBody = document.getElementById('users-table-body');
+        usersTableBody.innerHTML = '<tr><td colspan="4">Yüklənir...</td></tr>'; // Yüklənmə mesajı
+
+        try {
+            const usersSnapshot = await db.collection('users').get();
+            let tableHTML = '';
+            usersSnapshot.forEach(doc => {
+                const userData = doc.data();
+                tableHTML += `
+                    <tr>
+                        <td>${userData.fullName}</td>
+                        <td>${userData.email}</td>
+                        <td>${userData.userType}</td>
+                        <td>${doc.id}</td>
+                    </tr>
+                `;
+            });
+            usersTableBody.innerHTML = tableHTML;
+        } catch (error) {
+            console.error("İstifadəçiləri gətirərkən xəta:", error);
+            usersTableBody.innerHTML = '<tr><td colspan="4">İstifadəçiləri yükləmək mümkün olmadı.</td></tr>';
+        }
+    });
+}
+// YENİ: USTA PROFİLİNİ YENİLƏMƏ MƏNTİQİ
+const editProfileForm = document.getElementById('edit-profile-form');
+if (editProfileForm) {
+    editProfileForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if (!user) {
+            return showNotification('Zəhmət olmasa, əvvəlcə daxil olun.', 'error');
+        }
+
+        const formData = new FormData(editProfileForm);
+        const newFullName = formData.get('fullName');
+        const newAboutMe = formData.get('aboutMe');
+
+        try {
+            // Firestore-da istifadəçinin sənədini yeniləyirik
+            await db.collection('users').doc(user.uid).update({
+                fullName: newFullName,
+                aboutMe: newAboutMe
+            });
+
+            // Başlıqdakı adı da dərhal yeniləyirik
+            updateHeader(newFullName);
+            showNotification('Profiliniz uğurla yeniləndi!', 'success');
+
+        } catch (error) {
+            console.error("Profil yenilənərkən xəta:", error);
+            showNotification('Profil yenilənərkən xəta baş verdi.', 'error');
+        }
+    });
+}
+// YENİ: USTA XİDMƏTLƏRİNİ İDARƏ ETMƏ MƏNTİQİ
+const addServiceModal = document.getElementById('add-service-modal');
+const addServiceForm = document.getElementById('add-service-form');
+const openAddServiceBtn = document.querySelector('[data-key="add_new_service"]');
+
+if(openAddServiceBtn) {
+    openAddServiceBtn.onclick = () => openModal(addServiceModal);
+}
+
+// Xidmətləri cədvəldə göstərən funksiya
+async function renderMasterServices() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const servicesTableBody = document.getElementById('my-services-table-body');
+    servicesTableBody.innerHTML = '<tr><td colspan="3">Yüklənir...</td></tr>';
+
+    const servicesSnapshot = await db.collection('users').doc(user.uid).collection('services').get();
+    let tableHTML = '';
+    if (servicesSnapshot.empty) {
+        tableHTML = '<tr><td colspan="3">Heç bir xidmət əlavə edilməyib.</td></tr>';
+    } else {
+        servicesSnapshot.forEach(doc => {
+            const service = doc.data();
+            tableHTML += `
+                <tr data-id="${doc.id}">
+                    <td>${service.name}</td>
+                    <td>${service.price}</td>
+                    <td>
+                        <button class="action-btn reject delete-service-btn">Sil</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    servicesTableBody.innerHTML = tableHTML;
+}
+
+// Yeni xidmət əlavə etmək üçün form submit hadisəsi
+if (addServiceForm) {
+    addServiceForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const serviceName = addServiceForm.serviceName.value;
+        const servicePrice = addServiceForm.servicePrice.value;
+
+        try {
+            await db.collection('users').doc(user.uid).collection('services').add({
+                name: serviceName,
+                price: servicePrice
+            });
+            showNotification('Xidmət uğurla əlavə edildi!', 'success');
+            addServiceForm.reset();
+            closeModal(addServiceModal);
+            renderMasterServices(); // Cədvəli yenilə
+        } catch (error) {
+            showNotification('Xidmət əlavə edilərkən xəta baş verdi.', 'error');
+            console.error("Xidmət əlavə etmə xətası:", error);
+        }
+    });
+}
+
+// Xidməti silmək üçün event delegation
+document.getElementById('my-services-table-body').addEventListener('click', async (e) => {
+    if (e.target.classList.contains('delete-service-btn')) {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const serviceRow = e.target.closest('tr');
+        const serviceId = serviceRow.dataset.id;
+
+        if (confirm('Bu xidməti silmək istədiyinizə əminsiniz?')) {
+            try {
+                await db.collection('users').doc(user.uid).collection('services').doc(serviceId).delete();
+                showNotification('Xidmət silindi.', 'success');
+                renderMasterServices(); // Cədvəli yenilə
+            } catch (error) {
+                showNotification('Xidmət silinərkən xəta baş verdi.', 'error');
+                console.error("Xidmət silmə xətası:", error);
+            }
+        }
+    }
+});
+
+// Usta panelinə keçid edəndə xidmətləri yüklə
+document.querySelector('[data-page="master-dashboard"]').addEventListener('click', renderMasterServices);
+// YENİ: AXTARIŞ MƏNTİQİ
+const heroSearchForm = document.getElementById('hero-search');
+if (heroSearchForm) {
+    heroSearchForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const searchTerm = heroSearchForm.querySelector('input').value.trim().toLowerCase();
+        if (!searchTerm) return;
+
+        showPage('search-results');
+        const resultsContainer = document.getElementById('search-results-container');
+        resultsContainer.innerHTML = '<p>Axtarılır...</p>';
+
+        try {
+            // Bütün ustaları Firestore-dan götürürük
+            const usersSnapshot = await db.collection('users').where('userType', '==', 'master').get();
+
+            let foundMasters = [];
+
+            // Hər bir ustanın xidmətlərini də yoxlamaq üçün asinxron dövr yaradırıq
+            for (const userDoc of usersSnapshot.docs) {
+                const master = { id: userDoc.id, ...userDoc.data() };
+                let match = false;
+
+                // 1. Ustanın adında axtarırıq
+                if (master.fullName.toLowerCase().includes(searchTerm)) {
+                    match = true;
+                }
+
+                // 2. Ustanın xidmətlərində axtarırıq
+                if (!match) {
+                    const servicesSnapshot = await db.collection('users').doc(master.id).collection('services').get();
+                    servicesSnapshot.forEach(serviceDoc => {
+                        const service = serviceDoc.data();
+                        if (service.name.toLowerCase().includes(searchTerm)) {
+                            match = true;
+                        }
+                    });
+                }
+
+                if (match) {
+                    foundMasters.push(master);
+                }
+            }
+
+            let resultsHTML = '';
+            if (foundMasters.length === 0) {
+                resultsHTML = '<p>Axtarışınıza uyğun heç bir usta tapılmadı.</p>';
+            } else {
+                foundMasters.forEach(master => {
+                    resultsHTML += `
+                        <div class="search-result-card" data-page="master-profile" data-master-id="${master.id}">
+                            <img src="https://placehold.co/200x200/EFEFEF/AAAAAA&text=Usta" alt="${master.fullName}">
+                            <div class="search-result-info">
+                                <h3>${master.fullName}</h3>
+                                <p>${master.aboutMe || 'Təcrübəli usta.'}</p>
+                                <div class="rating">★★★★★</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            resultsContainer.innerHTML = resultsHTML;
+
+        } catch (error) {
+            console.error("Axtarış zamanı xəta:", error);
+            resultsContainer.innerHTML = '<p>Axtarış zamanı xəta baş verdi. Zəhmət olmasa, yenidən cəhd edin.</p>';
+        }
+    });
+}
+
+// YENİ: SƏHİFƏ AŞAĞI SÜRÜŞDÜKDƏ ELEMENTLƏRİ GÖSTƏRƏN ANİMASİYA
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+    fadeInObserver.observe(el);
+});
+
+// STATS SAYĞAC ANİMASİYASI
+const statsObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumber = entry.target;
+            const goal = parseInt(statNumber.getAttribute('data-goal'));
+            let current = 0;
+            const increment = Math.ceil(goal / 100);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= goal) {
+                    statNumber.innerText = goal.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    statNumber.innerText = current.toLocaleString();
+                }
+            }, 20);
+
+            observer.unobserve(statNumber); // Animasiya bir dəfə işləsin
+        }
+    });
+}, { threshold: 0.8 });
+
+document.querySelectorAll('.stat-number').forEach(stat => {
+    statsObserver.observe(stat);
+});
+// YENİ: PANEL DAXİLİ NAVİQASİYA (TAB) MƏNTİQİ
+document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Bütün linklərdən "active" klassını silirik
+        document.querySelectorAll('.sidebar-nav .nav-link').forEach(navLink => {
+            navLink.classList.remove('active');
+        });
+
+        // Kliklənən linkə "active" klassını əlavə edirik
+        this.classList.add('active');
+
+        // Hədəf content bölməsini tapırıq
+        const targetId = this.getAttribute('data-target');
+        const targetContent = document.getElementById(targetId);
+
+        if(targetContent) {
+            // Bütün content bölmələrini gizlədirik
+            targetContent.closest('.main-content').querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Yalnız hədəf content bölməsini göstəririk
+            targetContent.classList.add('active');
+        }
+    });
+});
+
+   // YENİ VƏ TƏKMİLLƏŞDİRİLMİŞ İSTİFADƏÇİ STATUSU İZLƏYƏN FUNKSİYA
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        // İstifadəçi daxil olubsa...
+        const userDoc = await db.collection("users").doc(user.uid).get();
+        if (userDoc.exists) {
+            const userData = userDoc.data();
+            
+            // 1. İnterfeysi yeniləyirik
+            updateHeader(userData.fullName);
+            
+            // 2. TƏHLÜKƏSİZ admin yoxlanışı
+            user.getIdTokenResult().then(idTokenResult => {
+                if (!!idTokenResult.claims.admin) {
+                    adminPanelBtn.style.display = 'inline-block';
+                } else {
+                    adminPanelBtn.style.display = 'none';
+                }
+            });
+
+            // 3. Panel səhifələrindəki adları yeniləyirik
+            document.getElementById('customer-dashboard-username').innerText = userData.fullName;
+            document.getElementById('master-dashboard-username').innerText = userData.fullName;
+            
+            // 4. İstifadəçi növünü yaddaşda saxlayırıq
+            localStorage.setItem('userType', userData.userType);
+
+            // 5. ƏGƏR İSTİFADƏÇİ USTADIRSA, PANELİNİ DƏRHAL DOLDURURUQ
+            if (userData.userType === 'master') {
+                // Profil redaktə formunu doldururuq
+                document.getElementById('master-full-name').value = userData.fullName || '';
+                document.getElementById('master-about-me').value = userData.aboutMe || '';
+                // Ustanın xidmətlərini cədvələ yükləyirik
+                renderMasterServices(); 
+            }
+        } else {
+            auth.signOut();
+        }
+    } else {
+        // İstifadəçi daxil olmayıbsa və ya çıxış edibsə...
+        updateHeader(null);
+        localStorage.removeItem('userType');
+        showPage('home'); // Ana səhifəyə yönləndiririk
+    }
+});
+
+// Səhifə ilk dəfə yüklənəndə dili təyin edək
+setLanguage(localStorage.getItem('language') || 'az');
+});
+    </script> 
+
+</body>
+</html>
